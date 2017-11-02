@@ -15,7 +15,7 @@
 //    ifconfig |grep inet   
 // to see what your public facing IP address is, the ip address can be used here
 //let SERVER_URL = "http://erics-macbook-pro.local:8000" // change this for your server name!!!
-let SERVER_URL = "http://10.8.116.92:8000" // change this for your server name!!!
+let SERVER_URL = "http://10.8.120.159:8000" // change this for your server name!!!
 
 import UIKit
 import CoreMotion
@@ -43,6 +43,9 @@ class ViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var leftArrow: UILabel!
     @IBOutlet weak var largeMotionMagnitude: UIProgressView!
+    
+    @IBOutlet weak var dsidStepper: UIStepper!
+    
     
     // MARK: Class Properties with Observers
     enum CalibrationStage {
@@ -253,7 +256,7 @@ class ViewController: UIViewController, URLSessionDelegate {
         // setup core motion handlers
         startMotionUpdates()
         
-        dsid = 2 // set this and it will update UI
+        dsid = 0 // set this and it will update UI
     }
 
     //MARK: Get New Dataset ID
@@ -446,10 +449,23 @@ class ViewController: UIViewController, URLSessionDelegate {
             
         } catch {
             print("json error: \(error.localizedDescription)")
-            return NSDictionary() // just return empty
+            let jsonDictionary: NSDictionary = ["prediction": "Test"]
+//            return NSDictionary() // just return empty
+            return jsonDictionary
         }
     }
-
+    
+    
+    @IBAction func dsidChanged(_ sender: UIStepper) {
+        
+        let stepperVal = sender.value
+        
+        self.dsid = Int(stepperVal)
+        
+        self.dsidLabel.text = "Current DSID: \(self.dsid)"
+        
+    }
+    
 }
 
 
