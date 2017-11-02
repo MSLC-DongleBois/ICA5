@@ -102,6 +102,7 @@ class PredictOneFromDatasetId(BaseHandler):
         if self.clf == []:
             print('Loading Model From DB')
             tmp = self.db.models.find_one({"dsid": dsid})
+            found = false
             if tmp:
                 found = true
                 self.clf = pickle.loads(tmp['model'])
