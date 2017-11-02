@@ -103,6 +103,7 @@ class PredictOneFromDatasetId(BaseHandler):
             print('Loading Model From DB')
             tmp = self.db.models.find_one({"dsid": dsid})
             if tmp:
+                found = true
                 self.clf = pickle.loads(tmp['model'])
             else:
                 c1 = KNeighborsClassifier(n_neighbors=3)
@@ -120,4 +121,5 @@ class PredictOneFromDatasetId(BaseHandler):
                     upsert=True
                 )
         predLabel = self.clf.predict(fvals)
-        self.write_json({"prediction": str(predLabel)})
+        if found:
+            self.write_json({"prediction": str(predLabel)})
