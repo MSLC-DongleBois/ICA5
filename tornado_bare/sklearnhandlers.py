@@ -99,12 +99,13 @@ class PredictOneFromDatasetId(BaseHandler):
         fvals = [float(val) for val in vals]
         fvals = np.array(fvals).reshape(1, -1)
 
+        found = False
+
         if self.clf == []:
             print('Loading Model From DB')
             tmp = self.db.models.find_one({"dsid": dsid})
-            found = false
             if tmp:
-                found = true
+                found = True
                 self.clf = pickle.loads(tmp['model'])
             else:
                 c1 = KNeighborsClassifier(n_neighbors=3)
