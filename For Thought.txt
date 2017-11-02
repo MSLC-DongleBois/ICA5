@@ -1,0 +1,8 @@
+
+IMPORTANT:
+In the movie, we forgot to pan over to our computer screen to show that the app was making post requests to update the model. Therefore, we submitted a screenshot of the server updating with requests.
+
+14. Yes! When the model is being written to disk, there’s a small pause as the IO loop is blocked.
+
+15. As long as the dependency versions are the same, there should be no problem moving the models from one server to another.
+
